@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to left, lightblue, deepskyblue);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fynn.randomSitzordnung.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu fx:id="file" mnemonicParsing="false" text="Datei">
+                  <items>
+                    <MenuItem fx:id="export" disable="true" mnemonicParsing="false" onAction="#exportFile" text="Sitzplan exportieren">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                        <MenuItem fx:id="importFile" mnemonicParsing="false" onAction="#importFile" text="Sitzplan importieren">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
+                  </items>
+                </Menu>
+                <Menu fx:id="settings" mnemonicParsing="false" text="Einstellungen">
+                  <items>
+                        <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Reihenanzahl">
+                           <content>
+                              <TextField fx:id="rows" onAction="#clearRows" onKeyReleased="#setRows" promptText="Reihenanzahl" />
+                           </content>
+                        </CustomMenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="resetSettings" mnemonicParsing="false" onAction="#resetSettings" text="Einstellungen zurücksetzten" />
+                  </items>
+                </Menu>
+                <Menu fx:id="help" mnemonicParsing="false" text="Hilfe">
+                  <items>
+                        <Menu mnemonicParsing="false" text="Über">
+                          <items>
+                              <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Über">
+                                 <content>
+                                    <Label text="Autor: Fynn Schur" />
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Über">
+                                 <content>
+                                    <Label text="Version 3.1" />
+                                 </content>
+                              </CustomMenuItem>
+                              <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Über">
+                                 <content>
+                                    <Label text="Die Sofware steht unter der GNU General Public License v2.0" />
+                                 </content>
+                              </CustomMenuItem>
+                          </items>
+                        </Menu>
+                        <MenuItem fx:id="ds" mnemonicParsing="false" onAction="#displayDSB" text="Datenschutzbestimmung" />
+                        <MenuItem fx:id="imp" mnemonicParsing="false" onAction="#displayImp" text="Impressum" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <right>
+            <TabPane prefHeight="331.0" prefWidth="234.0" style="-fx-border-color: #888;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="Datei">
+                     <content>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="55.0" minHeight="1.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="76.0" minHeight="0.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="168.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="selectedFile" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="234.0" text="Keine Datei ausgewählt" />
+                              <Button fx:id="selectFile" alignment="CENTER" mnemonicParsing="false" onAction="#selectFile" prefHeight="25.0" prefWidth="170.0" styleClass="colorButton" stylesheets="@style.css" text="Datei auswählen" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets left="40.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Label fx:id="studentsAmount" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="309.0" text="Keine Schüler geladen" GridPane.rowIndex="1" />
+                              <Separator opacity="0.0" orientation="VERTICAL" prefHeight="200.0" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                     </content>
+                </Tab>
+                <Tab text="Datenbank">
+                     <content>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="74.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="140.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="22.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="71.0" text="IP-Adresse">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="73.0" text="Port" GridPane.rowIndex="1">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="113.0" text="SELECT" GridPane.rowIndex="4">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="101.0" text="FROM" GridPane.rowIndex="5">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="101.0" text="WHERE" GridPane.rowIndex="6">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="ip" prefHeight="25.0" prefWidth="157.0" GridPane.columnIndex="1" />
+                              <TextField fx:id="port" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="select" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="from" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="where" promptText="OPTIONAL" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Button fx:id="dbConnect" alignment="CENTER" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="152.0" styleClass="colorButton" stylesheets="@style.css" text="Verbinden" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Label fx:id="connectionStatus" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="77.0" GridPane.rowIndex="7">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="120.0" text="Benutzer" GridPane.rowIndex="2">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="91.0" text="Passwort" GridPane.rowIndex="3">
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </Label>
+                              <TextField fx:id="user" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                           </children>
+                        </GridPane>
+                     </content>
+                </Tab>
+                  <Tab text="Profile">
+                     <content>
+                        <VBox prefHeight="293.0" prefWidth="232.0">
+                           <children>
+                              <Label />
+                              <HBox prefHeight="26.0" prefWidth="232.0">
+                                 <children>
+                                    <TextField fx:id="profileName" onKeyReleased="#checkCreateProfile" promptText="Profilname" />
+                                    <ToggleButton fx:id="useNamelist" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="195.0" text="Namensliste benutzen" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="createProfile" disable="true" mnemonicParsing="false" onAction="#createProfile" prefHeight="25.0" prefWidth="249.0" text="Profil erstellen" />
+                              <Label />
+                              <HBox prefHeight="35.0" prefWidth="232.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="17.0" prefWidth="240.0" text="Profile:">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="currentProfile" prefHeight="17.0" prefWidth="361.0" text="Aktuelles Profil: -" textAlignment="JUSTIFY">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <ScrollPane prefHeight="240.0" prefWidth="232.0">
+                                 <content>
+                                    <VBox fx:id="profiles" prefHeight="231.0" prefWidth="230.0" />
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </right>
+         <left>
+            <BorderPane prefHeight="324.0" prefWidth="232.0" BorderPane.alignment="CENTER">
+               <bottom>
+                  <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="103.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="69.0" minWidth="10.0" prefWidth="69.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="loadFile" alignment="CENTER" mnemonicParsing="false" onAction="#loadLastList" prefHeight="25.0" prefWidth="100.0" stylesheets="@style.css" text="Liste laden" GridPane.rowIndex="1">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Button>
+                        <Label fx:id="loadList" prefHeight="17.0" prefWidth="103.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label prefHeight="17.0" prefWidth="195.0" text="Letzte Liste benutzen" GridPane.columnSpan="2" />
+                     </children>
+                     <BorderPane.margin>
+                        <Insets left="60.0" />
+                     </BorderPane.margin>
+                  </GridPane>
+               </bottom>
+               <center>
+                  <Separator opacity="0.0" orientation="VERTICAL" prefHeight="264.0" prefWidth="150.0" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <VBox prefHeight="200.0" prefWidth="244.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label />
+                        <TextField fx:id="roomNumber" prefHeight="25.0" prefWidth="120.0" promptText="Raumnummer">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label />
+                        <TextField fx:id="courseNumber" prefHeight="25.0" prefWidth="120.0" promptText="Kursnummer / Klasse">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label />
+                        <ComboBox fx:id="choiceBox" onAction="#changeColorGradient" prefHeight="25.0" prefWidth="211.0">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <Label />
+                        <ColorPicker fx:id="colorPicker" onAction="#setColor" prefHeight="25.0" prefWidth="180.0">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </ColorPicker>
+                        <ColorPicker fx:id="colorPicker2" onAction="#setColor" prefHeight="25.0" prefWidth="204.0" visible="false">
+                           <VBox.margin>
+                              <Insets left="60.0" />
+                           </VBox.margin>
+                        </ColorPicker>
+                     </children>
+                  </VBox>
+               </top>
+            </BorderPane>
+         </left>
+         <center>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <bottom>
+                  <Button fx:id="create" disable="true" mnemonicParsing="false" onAction="#generate" prefHeight="30.0" prefWidth="170.0" stylesheets="@style.css" text="Neue Sitzordnung" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" />
+                     </BorderPane.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </bottom>
+               <center>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="638.0" text="Random Sitzordnung" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="BN Machine" size="50.0" />
+                     </font>
+                  </Label>
+               </center>
+            </BorderPane>
+         </center>
+      </BorderPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <center>
+            <AnchorPane fx:id="pane" style="-fx-border-color: #000; -fx-border-width: 4;" />
+         </center>
+         <top>
+            <Label text="Lehrerpult" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <Separator opacity="0.0" prefWidth="60.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Separator opacity="0.0" prefHeight="1.0" prefWidth="60.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <Separator opacity="0.0" orientation="VERTICAL" prefHeight="60.0" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
+</GridPane>

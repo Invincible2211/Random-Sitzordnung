@@ -1,0 +1,22 @@
+Datenschutzerklärung (Stand 23.11.2020)
+
+Datenschutz
+Diese Datenschutzerklärung wurde verfasst, um Ihnen gemäß der Vorgaben der Datenschutz-Grundverordnung zu erklären,
+welche Informationen gesammelt und wie die Daten verwenden werden und welche Entscheidungsmöglichkeiten Sie als Nutzer dieser Software haben.
+
+Speicherung persönlicher Daten
+Persönliche Daten, die Sie in der Software eingeben, wie die Namen der Schüler und andere persönlichen Angaben,
+die im Rahmen der Funktionalität der Software eingegeben werden,
+werden nur Softwareintern gespeichert und nicht an Dritte weitergegeben.
+
+Mit der Nutzung der Software stimmen sie der Datenschutzerklärung automatisch zu.
+
+Rechte laut Datenschutzgrundverordnung
+Ihnen stehen laut den Bestimmungen der DSGVO grundsätzlich die folgende Rechte zu:
+
+Recht auf Berichtigung (Artikel 16 DSGVO)
+Recht auf Löschung (Artikel 17 DSGVO)
+Recht auf Einschränkung der Verarbeitung (Artikel 18 DSGVO)
+Recht auf Benachrichtigung (Artikel 19 DSGVO)
+Recht auf Datenübertragbarkeit (Artikel 20 DSGVO)
+Widerspruchsrecht (Artikel 21 DSGVO)

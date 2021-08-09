@@ -1,0 +1,4 @@
+:hover {
+    -fx-background-color: linear-gradient(to left, #2d8fe5, #d155b8);
+    -fx-cursor: pointer;
+}
